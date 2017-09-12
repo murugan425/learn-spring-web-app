@@ -15,6 +15,8 @@ public class Book {
     private String bookName;
 
     @ManyToMany
+    @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
+    inverseJoinColumns = @JoinColumn(name = "author_id"))
     private Set<Author> authors = new HashSet<>();
 
     public Book() {
@@ -61,5 +63,32 @@ public class Book {
 
     public void setAuthors(Set<Author> authors) {
         this.authors = authors;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Book book = (Book) o;
+
+        return bookId.equals(book.bookId) && bookISBN.equals(book.bookISBN);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = bookId.hashCode();
+        result = 31 * result + bookISBN.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookISBN=" + bookISBN +
+                ", bookName='" + bookName + '\'' +
+                ", authors=" + authors +
+                '}';
     }
 }
