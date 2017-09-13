@@ -19,6 +19,10 @@ public class Author {
     public Author() {
     }
 
+    public Author(String authorName) {
+        this.authorName = authorName;
+    }
+
     public Author(Integer authorId, String authorName, Set<Book> books) {
         this.authorId = authorId;
         this.authorName = authorName;
@@ -56,12 +60,12 @@ public class Author {
 
         Author author = (Author) o;
 
-        return authorId.equals(author.authorId);
+        return authorId != null ? authorId.equals(author.authorId) : author.authorId == null;
     }
 
     @Override
     public int hashCode() {
-        return authorId.hashCode();
+        return authorId != null ? authorId.hashCode() : 0;
     }
 
     @Override

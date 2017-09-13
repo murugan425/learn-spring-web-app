@@ -26,6 +26,11 @@ public class Book {
         this.bookId = bookId;
     }
 
+    public Book(String bookName, Integer bookISBN){
+        this.bookName = bookName;
+        this.bookISBN = bookISBN;
+    }
+
     public Book(Integer bookId, Integer bookISBN, String bookName, Set<Author> authors) {
         this.bookId = bookId;
         this.bookISBN = bookISBN;
@@ -72,13 +77,14 @@ public class Book {
 
         Book book = (Book) o;
 
-        return bookId.equals(book.bookId) && bookISBN.equals(book.bookISBN);
+        return (bookId != null ? bookId.equals(book.bookId) : book.bookId == null) &&
+                ((bookISBN != null) ? bookISBN.equals(book.bookISBN) : (book.bookISBN == null));
     }
 
     @Override
     public int hashCode() {
-        int result = bookId.hashCode();
-        result = 31 * result + bookISBN.hashCode();
+        int result = bookId != null ? bookId.hashCode() : 0;
+        result = 31 * result + (bookISBN != null ? bookISBN.hashCode() : 0);
         return result;
     }
 
