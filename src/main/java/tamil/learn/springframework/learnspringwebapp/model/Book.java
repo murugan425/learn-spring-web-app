@@ -14,6 +14,9 @@ public class Book {
     private Integer bookISBN;
     private String bookName;
 
+    @OneToOne
+    private Publisher bookPublisher;
+
     @ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
     inverseJoinColumns = @JoinColumn(name = "author_id"))
@@ -26,15 +29,17 @@ public class Book {
         this.bookId = bookId;
     }
 
-    public Book(String bookName, Integer bookISBN){
+    public Book(String bookName, Integer bookISBN, Publisher bookPublisher){
         this.bookName = bookName;
         this.bookISBN = bookISBN;
+        this.bookPublisher = bookPublisher;
     }
 
-    public Book(Integer bookId, Integer bookISBN, String bookName, Set<Author> authors) {
+    public Book(Integer bookId, Integer bookISBN, String bookName, Publisher bookPublisher, Set<Author> authors) {
         this.bookId = bookId;
         this.bookISBN = bookISBN;
         this.bookName = bookName;
+        this.bookPublisher = bookPublisher;
         this.authors = authors;
     }
 
@@ -60,6 +65,14 @@ public class Book {
 
     public void setBookName(String bookName) {
         this.bookName = bookName;
+    }
+
+    public Publisher getBookPublisher() {
+        return bookPublisher;
+    }
+
+    public void setBookPublisher(Publisher bookPublisher) {
+        this.bookPublisher = bookPublisher;
     }
 
     public Set<Author> getAuthors() {
